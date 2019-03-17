@@ -1,0 +1,39 @@
+-- Puzzle 2 part a
+from collections import Counter
+data = open('input.txt', 'r').read().split('\n')
+count_2=0
+count_3=0
+for i in data:
+	count = Counter(i)
+	if 2 in count.values():
+		count_2=count_2+1;
+	if 3 in count.values():
+		count_3=count_3+1
+res = (lambda count_2,count_3:count_2*count_3)
+print(res(count_2,count_3))
+
+-- Puzzle 2 part b
+from collections import Counter
+data = open('input.txt', 'r').read().split('\n')
+res_string=""
+def compare(a,b):
+	diff=0
+	val=zip(a,b)
+	for i,j in val:
+		if i!=j:
+			diff+=1;
+	if(diff==1):
+		return True
+	return False
+def res(a,b):
+	str=""
+	val=zip(a,b)
+	for i,j in val:
+		if i==j:
+			str=str + (i)
+	print(str)
+
+for i in data:
+	for j in data:
+		if(compare(i,j)):
+			res(i,j)
