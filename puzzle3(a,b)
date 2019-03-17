@@ -1,0 +1,56 @@
+-- puzzle 3a
+from collections import Counter
+from itertools import product
+import re
+data = open('input.txt', 'r').read().split('\n')
+input=set()
+for i in data:
+	inp=re.findall(r'\d+',i)
+	input.add(tuple(inp))
+
+def claimed(claims):
+	c=Counter();
+	sum=0
+	for (id,x,y,w,h) in claims:
+		id=int(id)
+		x=int(x)
+		y=int(y)
+		w=int(w)
+		h=int(h)
+		c+= Counter(product(range(x, x+w), range(y, y+h)))
+	for i in c:
+		if c[i] >=2:
+			sum+=1;
+	print(sum)
+
+claimed(input)
+
+-- puzzle 3b
+from collections import Counter
+from itertools import product
+import re
+data = open('input.txt', 'r').read().split('\n')
+input=set()
+for i in data:
+	inp=re.findall(r'\d+',i)
+	input.add(tuple(inp))
+
+def claimed2(claims):
+	c=Counter();
+	sum=0
+	for (id,x,y,w,h) in claims:
+		id=int(id)
+		x=int(x)
+		y=int(y)
+		w=int(w)
+		h=int(h)
+		c+= Counter(product(range(x, x+w), range(y, y+h)))
+	for (id, x, y, w, h) in claims:
+		id=int(id)
+		x=int(x)
+		y=int(y)
+		w=int(w)
+		h=int(h)
+		if all(c[pos] == 1 for pos in product(range(x, x+w), range(y, y+h))):
+			print(id)
+claimed2(input)
