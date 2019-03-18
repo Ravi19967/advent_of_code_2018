@@ -1,0 +1,54 @@
+--puzzle4(a)
+from collections import Counter
+from itertools import product
+import re
+from collections import defaultdict
+data = open('input.txt', 'r').read().split('\n')
+input=[]
+for i in data:
+	thislist=[]
+	inp=re.sub('[][#:]',' ',i)
+	day,hour,mins,opcode,arg,*rest=inp.split()
+	thislist.append(day)
+	thislist.append(mins)
+	thislist.append(opcode)
+	thislist.append(arg)
+	input.append(thislist)
+input=sorted(input)
+sleep = defaultdict(lambda: defaultdict(list))
+for day,mins,opcode,arg in input:
+	if opcode=='Guard':
+		guard=int(arg)
+	elif opcode =='falls':
+		falls=mins
+	elif opcode =='wakes':
+		wakes=mins
+		sleep[guard][day].extend(range(int(falls),int(mins)))
+max=0
+sum=0
+key_max=0
+for k, v in sleep.items():
+	sum=0
+	for t, c in v.items():
+		sum += len(c)
+	if(sum>=max):
+		max=sum
+		key_max=k
+	print("Sum: ")
+	print(sum)
+	print("Key: ")
+	print(k)
+print(key_max)
+c=Counter()
+for i,j in sleep[key_max].items():
+		c+=Counter(j)
+max=0
+val=0
+print(c)
+for i in c:
+	if c[i]>=val:
+		max=i
+		val=c[i]
+print(max*key_max)
+
+--puzzle4(b)
