@@ -1,0 +1,62 @@
+-- puzzle 5(a)
+
+input=open('input.txt','r').read().split('\n')
+input=str(input)
+input=input[2:]
+input=input[:len(input)-2]
+input=list(input);
+
+#input=['a','a','A','A','c']
+flag=1
+count=0
+
+while(flag):
+	j=0
+	flag=0
+	for i in range(0,len(input)-1):
+		if(input[i-j]!=input[i-j+1] and input[i-j].lower()==input[i-j+1].lower()):
+			input.pop(i-j)
+			input.pop(i-j)
+			j+=2
+		else:
+			continue
+
+print(len(input))
+
+
+
+-- puzzle 5(b)
+
+from copy import deepcopy
+input=open('input.txt','r').read().split('\n')
+input=str(input)
+input=input[2:]
+input=input[:len(input)-2]
+input=list(input);
+in1=deepcopy(input)
+#input=['a','A','a','A','c']
+min_len = 1000000
+a = str('abcdefghijklmnopqrstuvwxyz')
+a=list(a)
+
+for alpha in range(0,26):
+	j=0
+	input=deepcopy(in1)
+	for i in range(0,len(input)-1):
+		if(input[i-j].lower()==a[alpha]):
+			input.pop(i-j)
+			j+=1
+	print(alpha)
+	print(len(in1))
+	print(len(input))
+	j=0
+	for i in range(0,len(input)-1):
+		if(input[i-j]!=input[i-j+1] and input[i-j].lower()==input[i-j+1].lower()):
+			input.pop(i-j)
+			input.pop(i-j)
+			j+=2
+		else:
+			continue
+	if(len(input)<min):
+		min=len(input)
+print(min)
